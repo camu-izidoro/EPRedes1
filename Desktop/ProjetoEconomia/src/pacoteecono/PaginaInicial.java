@@ -50,6 +50,11 @@ public class PaginaInicial extends javax.swing.JFrame {
         jLabel3.setText("Oferta e Demanda");
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +106,12 @@ public class PaginaInicial extends javax.swing.JFrame {
          frm_cambio.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btn_cambioMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         Frm_demanda frm_demanda = new Frm_demanda();
+         frm_demanda.setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
