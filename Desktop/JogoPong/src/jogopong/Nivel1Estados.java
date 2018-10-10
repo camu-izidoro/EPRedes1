@@ -6,6 +6,7 @@
 package jogopong;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
@@ -19,6 +20,7 @@ public class Nivel1Estados implements Estados{
     private Rectangle jogador1 = new Rectangle(0,0,10,50);
     private Rectangle jogador2 = new Rectangle(Jogo.WIDTH - 10,0,10,50);
     private int  movex=1, movey=1;
+    private int placar1 =0 , placar2=0;
     @Override
     public void init() {
         inicia();
@@ -65,6 +67,12 @@ public class Nivel1Estados implements Estados{
         g.fillRect(0, 0, Jogo.WIDTH, Jogo.HEIGHT);
         g.setColor(Color.WHITE);
         
+        
+        Font fonte = new Font("Dialog", Font.BOLD,12);
+        g.setFont(fonte);
+        g.drawString("Jogador 1 "+ placar1,Jogo.WIDTH * 1/4  - g.getFontMetrics().stringWidth("Jogador 1 "+ placar1)/2, g.getFontMetrics(fonte).getHeight());
+        g.drawString("Jogador 2 "+ placar2,Jogo.WIDTH * 3/4  - g.getFontMetrics().stringWidth("Jogador 2 "+ placar2)/2, g.getFontMetrics(fonte).getHeight());
+        g.fillRect(Jogo.WIDTH/2 - 3 ,0,6,Jogo.HEIGHT);
         g.fillRect(bola.x, bola.y, bola.width, bola.height);
         g.fillRect(jogador1.x, jogador1.y, jogador1.width, jogador1.height);
         g.fillRect(jogador2.x, jogador2.y, jogador2.width, jogador2.height);
@@ -84,20 +92,28 @@ public class Nivel1Estados implements Estados{
         private void limits_bola() {
         if(bola.x+15> Jogo.WIDTH){
             //movex = -1;
+            placar1++;
             inicia();
         }
         
         if(bola.y+15> Jogo.HEIGHT){
-            movey = -1;
+            movey = -2;
         }
         
         if(bola.x < 0)
+            placar2++;
             //movex=1;
              //QUANDO PASSAR DA ESQUERDA DA TELA
             inicia();
            
         if( bola.y< 0)
-            movey=1;
+            movey=2;
+        
+        // intercept quando o retangulo do jogador encontra a bolinha // importante para os sockets
+        
+        if(jogador1.intersects(bola) || jogador2.intersects(bola) ){
+            movex *=-1; // mantem a velocidade e só muda o sinal
+        }
         }
 
     private void limits_jogadores() {
